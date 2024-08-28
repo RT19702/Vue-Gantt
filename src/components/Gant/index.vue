@@ -33,8 +33,10 @@
 				<div class="head">
 					<div class="head-box">
 						<div class="transition-transForm gantt-row">
-							<div class="gantt-time-block">
-								<div class="top"></div>
+							<div class="gantt-time-block" v-for="(item, index) in choiceTimeArr">
+								<div class="top">
+									{{ item }}
+								</div>
 								<div class="bottom">
 									<!-- 24小时 -->
 									<div class="day-item" v-for="index in 2" :key="index">
@@ -53,9 +55,19 @@
 
 <script setup>
 import mockData from '@/mock/index.js'
-import { ref } from 'vue'
+import dayjs from 'dayjs'
+import { ref,onMounted } from 'vue';
 // Mock数据
 const gattData = mockData.getData();
+// 当前时间-第十天
+const choiceTime = ref([dayjs().format('YYYY-MM-DD'), dayjs().add(10, 'day').format('YYYY-MM-DD')]);
+const choiceTimeArr = ref([]);
+// 初始化时间
+const initTime = () => {
+	const [startTime, endTime] = choiceTime.value.map(date => dayjs(date));
+	const days = endTime.diff(startTime, 'day');
+	choiceTimeArr.value = Array.from({ length: days + 1 }, (_, i) => startTime.add(i, 'day').format('YYYY-MM-DD'));
+};
 // 合并相同的单元格
 const mergeCell = (key, value, index, center = true) => {
 	const returnStyle = {};
@@ -93,7 +105,9 @@ const mergeCell = (key, value, index, center = true) => {
 
 	return returnStyle;
 }
-
+onMounted(() => {
+	initTime();
+})
 </script>
 
 <style scoped lang="scss">
