@@ -60,9 +60,22 @@ const gattData = mockData.getData();
 const mergeCell = (key, value, index, center = true) => {
 	const returnStyle = {}
 	if (index < gattData.length - 1) {
+		// 是否显示底部分割线
 		const nextRow = gattData[index + 1]
 		if (nextRow.typeName == value) {
 			returnStyle.borderBottom = 'none'
+		}
+		// 计算行高
+		let lastIndex = index
+		for (let rowIndex = index + 1; rowIndex < gattData.length; rowIndex++) {
+			const row = gattData[rowIndex]
+			if (row[key] === value) {
+				lastIndex = rowIndex
+			}
+		}
+		returnStyle.height = 60 * (lastIndex - index + 1) + 'px'
+		if (center) {
+			returnStyle.lineHeight = 60 * (lastIndex - index + 1) + 'px'
 		}
 	}
 	if (index >= 1) {
