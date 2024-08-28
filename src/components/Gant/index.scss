@@ -1,0 +1,110 @@
+//顶部栏的高度
+$topBarHeight: 45px;
+//左边侧边栏的宽度
+$leftSideWidth: 500px;
+//表中列表头的高度
+$tableHeadHeight: 60px;
+//表中列表头的颜色
+$tableHeadColor: #9c9db6;
+//表中列表头的字体颜色
+$tableHeadFontColor: #ffffff;
+//表中边框的颜色
+$tableBorderColor: #e8e8e8;
+.gant-main {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - #{$topBarHeight});
+
+  .left {
+    width: $leftSideWidth;
+    // overflow-y: hidden;
+    // overflow-x: scroll;
+    .head {
+      height: $tableHeadHeight;
+      position: relative;
+      z-index: 3;
+
+      .head-box {
+        background-color: $tableHeadColor;
+        height: $tableHeadHeight;
+        color: $tableHeadFontColor;
+        width: 100%;
+      }
+    }
+  }
+
+  .right {
+    width: calc(100% - #{$leftSideWidth});
+
+    .head {
+      height: $tableHeadHeight;
+
+      .transition-transForm {
+        transition: transform 0.3s;
+      }
+
+      .head-box {
+        overflow: hidden; //transform 移动出的东西 隐藏
+        box-sizing: border-box;
+        color: $tableHeadFontColor;
+        background-color: $tableHeadColor;
+        height: $tableHeadHeight;
+        z-index: 2;
+      }
+    }
+  }
+
+  .gantt-row {
+    height: 60px;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gantt-block {
+    text-align: center;
+    line-height: 60px;
+    height: 60px;
+    width: 360px; // 24小时
+    box-sizing: border-box;
+    border-right: 2px solid $tableBorderColor;
+    border-bottom: 1px solid $tableBorderColor;
+  }
+  .gantt-time-block {
+    box-sizing: border-box;
+    //border: 1px solid #999999;
+    font-size: 12px;
+    .top {
+      box-sizing: border-box;
+      border-bottom: 1px solid $tableBorderColor;
+      border-right: 1px solid $tableBorderColor;
+      text-align: center;
+      // 60 ÷ 2 = 30
+      height: $tableHeadHeight/2;
+      line-height: $tableHeadHeight/2;
+    }
+    .bottom {
+      display: flex;
+      .day-item {
+        //180 ÷ 3 = 60
+        line-height: $tableHeadHeight/2;
+        //为了保持1px 等于1分钟 所以取值60px
+        width: 180px;
+        height: $tableHeadHeight/2;
+
+        &:first-child {
+          border-right: 1px solid $tableBorderColor;
+        }
+
+        .text {
+          margin-left: -6px;
+          text-align: center;
+        }
+        &:last-child {
+          box-sizing: border-box;
+          border-right: 1px solid $tableBorderColor;
+        }
+      }
+    }
+  }
+}
