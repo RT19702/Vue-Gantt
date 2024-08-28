@@ -58,35 +58,42 @@ import { ref } from 'vue'
 const gattData = mockData.getData();
 // 合并相同的单元格
 const mergeCell = (key, value, index, center = true) => {
-	const returnStyle = {}
-	if (index < gattData.length - 1) {
-		// 是否显示底部分割线
-		const nextRow = gattData[index + 1]
-		if (nextRow.typeName == value) {
-			returnStyle.borderBottom = 'none'
-		}
-		// 计算行高
-		let lastIndex = index
-		for (let rowIndex = index + 1; rowIndex < gattData.length; rowIndex++) {
-			const row = gattData[rowIndex]
-			if (row[key] === value) {
-				lastIndex = rowIndex
-			}
-		}
-		returnStyle.height = 60 * (lastIndex - index + 1) + 'px'
-		if (center) {
-			returnStyle.lineHeight = 60 * (lastIndex - index + 1) + 'px'
+	const returnStyle = {};
+	const nextRow = gattData[index + 1];
+	const lastRow = gattData[index - 1];
+	const isNotLastRow = index < gattData.length - 1;
+
+	// 是否显示底部分割线
+	if (isNotLastRow && nextRow?.typeName === value) {
+		returnStyle.borderBottom = 'none';
+	}
+
+	// 计算行高
+	let lastIndex = index;
+	for (let rowIndex = index + 1; rowIndex < gattData.length; rowIndex++) {
+		if (gattData[rowIndex][key] === value) {
+			lastIndex = rowIndex;
+		} else {
+			// 如果不相等，就跳出循环 性能优化
+			break;
 		}
 	}
-	if (index >= 1) {
-		// 是否需要显示文字,把文字颜色变成背景颜色
-		const lastRow = gattData[index - 1]
-		if (lastRow[key] === value) {
-			returnStyle.color = '#ffffff'
-		}
+	const rowSpan = lastIndex - index + 1;
+	const rowHeight = 60 * rowSpan + 'px';
+
+	returnStyle.height = rowHeight;
+	if (center) {
+		returnStyle.lineHeight = rowHeight;
 	}
-	return returnStyle
+
+	// 是否需要显示文字,把文字颜色变成背景颜色
+	if (index >= 1 && lastRow?.[key] === value) {
+		returnStyle.color = '#ffffff';
+	}
+
+	return returnStyle;
 }
+
 </script>
 
 <style scoped lang="scss">
