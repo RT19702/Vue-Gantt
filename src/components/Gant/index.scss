@@ -36,9 +36,8 @@ $typeTextColor3: #ffffff;
 
   .left {
     width: $leftSideWidth;
-
-    // overflow-y: hidden;
-    // overflow-x: scroll;
+    /* overflow-y: hidden;
+    overflow-x: scroll; */
     .head {
       height: $tableHeadHeight;
       position: relative;
@@ -74,7 +73,7 @@ $typeTextColor3: #ffffff;
     }
 
     .content {
-      height: calc(100vh - #{$topBarHeight} - #{$tableHeadHeight});
+      // height: calc(100vh - #{$topBarHeight} - #{$tableHeadHeight});
       overflow-x: auto;
 
       .gantt-grid {

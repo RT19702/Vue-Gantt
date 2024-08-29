@@ -28,7 +28,6 @@ const mockData = {
 				remark: ""
 			}
 			
-			// let now = new Date("2024-08-29 00:00:00").getTime();
 			let now = dayjs().startOf('day').valueOf();
 
 			let types = [{
