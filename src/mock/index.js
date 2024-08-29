@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 const mockData = {
 	randomId: (length = 10) => {
 		return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
@@ -23,10 +25,12 @@ const mockData = {
 				model: rowIndex,
 				seat: mockData.randomNum(1, 5) + "楼",
 				blockList: [],
-				remark: "1231231231321dsfsdfsdf"
+				remark: ""
 			}
 			
-			let now = new Date("2022-04-14 00:00:00").getTime();
+			// let now = new Date("2024-08-29 00:00:00").getTime();
+			let now = dayjs().startOf('day').valueOf();
+
 			let types = [{
 				status: 1,
 				name: "转动测试"

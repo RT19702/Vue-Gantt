@@ -10,6 +10,25 @@ $tableHeadColor: #9c9db6;
 $tableHeadFontColor: #ffffff;
 //表中边框的颜色
 $tableBorderColor: #e8e8e8;
+//表的一行被激活后的颜色
+$tableRowActiveColor: rgba(255, 215, 0, 0.15);
+//状态颜色
+$typeBgColor0: #20c200; // 运行
+$typeTextColor0: #ffffff;
+$typeBgColor1: #065eeb; // 待机
+$typeTextColor1: #ffffff;
+$typeBgColor2: #ebc306; // 预留
+$typeTextColor2: #ffffff;
+$typeBgColor3: #ff0000; // 检修
+$typeTextColor3: #ffffff;
+
+.gantt-grab {
+  cursor: grab;
+}
+
+.gantt-grabbing {
+  cursor: grabbing;
+}
 .gant-main {
   display: flex;
   width: 100%;
@@ -17,6 +36,7 @@ $tableBorderColor: #e8e8e8;
 
   .left {
     width: $leftSideWidth;
+
     // overflow-y: hidden;
     // overflow-x: scroll;
     .head {
@@ -52,6 +72,62 @@ $tableBorderColor: #e8e8e8;
         z-index: 2;
       }
     }
+
+    .content {
+      height: calc(100vh - #{$topBarHeight} - #{$tableHeadHeight});
+      overflow-x: auto;
+
+      .gantt-grid {
+        display: inline-block;
+        overflow: hidden;
+        z-index: 1;
+
+        .gantt-row-relative {
+          position: relative;
+          transition: background-color 0.2s;
+
+          &.gantt-row-active {
+            background-color: $tableRowActiveColor;
+          }
+
+          //时间块的样式
+          .time-block {
+            position: absolute;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: red;
+            border-radius: 4px;
+            z-index: 3;
+            color: #ffffff;
+            font-size: 12px !important;
+            border: 1px solid #e3e3e3;
+            box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
+
+            &.block-type-0 {
+              background-color: $typeBgColor0;
+              color: $typeTextColor0;
+            }
+
+            &.block-type-1 {
+              background-color: $typeBgColor1;
+              color: $typeTextColor1;
+            }
+
+            &.block-type-2 {
+              background-color: $typeBgColor2;
+              color: $typeTextColor2;
+            }
+
+            &.block-type-3 {
+              background-color: $typeBgColor3;
+              color: $typeTextColor3;
+            }
+          }
+        }
+      }
+    }
   }
 
   .gantt-row {
@@ -70,27 +146,31 @@ $tableBorderColor: #e8e8e8;
     border-right: 2px solid $tableBorderColor;
     border-bottom: 1px solid $tableBorderColor;
   }
+
   .gantt-time-block {
     box-sizing: border-box;
     //border: 1px solid #999999;
     font-size: 12px;
+
     .top {
       box-sizing: border-box;
       border-bottom: 1px solid $tableBorderColor;
       border-right: 1px solid $tableBorderColor;
       text-align: center;
       // 60 ÷ 2 = 30
-      height: $tableHeadHeight/2;
-      line-height: $tableHeadHeight/2;
+      height: calc($tableHeadHeight / 2);
+      line-height: calc($tableHeadHeight / 2);
     }
+
     .bottom {
       display: flex;
+
       .day-item {
         //180 ÷ 3 = 60
-        line-height: $tableHeadHeight/2;
+        line-height: calc($tableHeadHeight / 2);
         //为了保持1px 等于1分钟 所以取值60px
         width: 180px;
-        height: $tableHeadHeight/2;
+        height: calc($tableHeadHeight / 2);
 
         &:first-child {
           border-right: 1px solid $tableBorderColor;
@@ -100,6 +180,7 @@ $tableBorderColor: #e8e8e8;
           margin-left: -6px;
           text-align: center;
         }
+
         &:last-child {
           box-sizing: border-box;
           border-right: 1px solid $tableBorderColor;
