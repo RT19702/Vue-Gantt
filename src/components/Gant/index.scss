@@ -29,6 +29,7 @@ $typeTextColor3: #ffffff;
 .gantt-grabbing {
   cursor: grabbing;
 }
+
 .gant-main {
   display: flex;
   width: 100%;
@@ -36,6 +37,7 @@ $typeTextColor3: #ffffff;
 
   .left {
     width: $leftSideWidth;
+
     /* overflow-y: hidden;
     overflow-x: scroll; */
     .head {
@@ -103,6 +105,7 @@ $typeTextColor3: #ffffff;
             font-size: 12px !important;
             border: 1px solid #e3e3e3;
             box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
+            top: 10px;
 
             &.block-type-0 {
               background-color: $typeBgColor0;

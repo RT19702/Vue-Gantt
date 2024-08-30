@@ -134,10 +134,8 @@ const timeSorting = (item) => {
 	if (item && item.startTime && item.endTime) {
 		// 确保 startTime 和 endTime 是有效的时间戳
 		const startTime = dayjs(item.startTime).valueOf();
-		// console.log("🚀 ~ timeSorting ~ startTime:", startTime)
 		const endTime = dayjs(item.endTime).valueOf();
 		const choiceStartTime = dayjs(choiceTime.value[0]).valueOf();
-		// console.log("🚀 ~ timeSorting ~ choiceStartTime:", choiceStartTime)
 
 		// 计算 left 和 width
 		left = (startTime - choiceStartTime) / 3600000 * 15;
@@ -146,7 +144,7 @@ const timeSorting = (item) => {
 
 	const style = {
 		left: `${left}px`,
-		width: `${width}px`
+		width: `${width}px`,
 	};
 
 	return style;
